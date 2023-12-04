@@ -3,13 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
-class country {
-  final String name;
-  final String flag;
-
-  country({required this.name, required this.flag});
-}
+import 'package:worldflags/model/country_model.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -86,14 +80,18 @@ class _HomePageState extends State<HomePage> {
               controller: searchController,
               onChanged: filterCountries,
               decoration: InputDecoration(
-                labelText: 'Search Country',
-                prefixIcon: Icon(Icons.search),
-              ),
+                  labelText: 'Search Country',
+                  prefixIcon: const Icon(Icons.search),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20))),
             ),
           ),
           Expanded(
             child: displayedCountries.isEmpty
-                ? Center(child: Text('No matching countries'))
+                ? const Center(
+                    child: CircularProgressIndicator(
+                    color: Colors.black,
+                  ))
                 : ListView.builder(
                     scrollDirection: Axis.vertical,
                     itemCount: displayedCountries.length,
@@ -104,7 +102,7 @@ class _HomePageState extends State<HomePage> {
                         child: Card(
                           elevation: 50,
                           shadowColor: Colors.black,
-                          color: Color.fromARGB(33, 0, 103, 92),
+                          color: const Color.fromARGB(33, 0, 103, 92),
                           child: SizedBox(
                             height: 300,
                             width: 500,
